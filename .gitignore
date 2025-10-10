@@ -33,3 +33,6 @@ build/
 .vscode/
 
 ### Suppl ###
+
+pom.xml
+application.properties
