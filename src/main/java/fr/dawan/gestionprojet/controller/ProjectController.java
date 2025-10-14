@@ -1,8 +1,10 @@
 package fr.dawan.gestionprojet.controller;
 
 import fr.dawan.gestionprojet.DTO.ProjectDTO;
+import fr.dawan.gestionprojet.DTO.TaskDTO;
 import fr.dawan.gestionprojet.DTO.UserDTO;
 import fr.dawan.gestionprojet.service.ProjectService;
+import fr.dawan.gestionprojet.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.Set;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final TaskService taskService;
 
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getAllProject() {
@@ -36,6 +39,12 @@ public class ProjectController {
         Set<UserDTO> members = projectService.getMembers(projectId);
         return ResponseEntity.ok(members);
     }
+
+    @GetMapping("/{projectId}/tasks")
+    public ResponseEntity<List<TaskDTO>> getTasksForProject(@PathVariable Long projectId) {
+        return ResponseEntity.ok(taskService.findByProjectId(projectId));
+    }
+
 
     @PostMapping
     public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO dto) {
