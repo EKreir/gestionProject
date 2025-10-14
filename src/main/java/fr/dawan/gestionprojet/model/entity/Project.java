@@ -23,7 +23,7 @@ public class Project {
     @Column(nullable = false)
     private String name;
 
-    @Column(length = 2000)
+    @Column(length = 50)
     private String description;
 
     private LocalDate startDate;
