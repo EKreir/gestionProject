@@ -4,6 +4,7 @@ package fr.dawan.gestionprojet.controller;
 import fr.dawan.gestionprojet.DTO.TaskDTO;
 import fr.dawan.gestionprojet.model.enums.TaskStatus;
 import fr.dawan.gestionprojet.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +36,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO dto) {
+    public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody TaskDTO dto) {
         TaskDTO created = taskService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @RequestBody TaskDTO dto) {
+    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @Valid @RequestBody TaskDTO dto) {
         return ResponseEntity.ok(taskService.update(id, dto));
     }
 

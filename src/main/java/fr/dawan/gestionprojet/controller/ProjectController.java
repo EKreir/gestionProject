@@ -5,6 +5,7 @@ import fr.dawan.gestionprojet.DTO.TaskDTO;
 import fr.dawan.gestionprojet.DTO.UserDTO;
 import fr.dawan.gestionprojet.service.ProjectService;
 import fr.dawan.gestionprojet.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,19 +48,19 @@ public class ProjectController {
 
 
     @PostMapping
-    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectDTO> createProject(@Valid @RequestBody ProjectDTO dto) {
         ProjectDTO created = projectService.create(dto);
         return ResponseEntity.created(URI.create("/api/projects/" +
                 created.getId())).body(created);
     }
 
     @PostMapping("/{projectId}/members/{userId}")
-    public ResponseEntity<ProjectDTO> addMember(@PathVariable Long projectId, @PathVariable Long userId) {
+    public ResponseEntity<ProjectDTO> addMember(@PathVariable Long projectId,@Valid @PathVariable Long userId) {
         return ResponseEntity.ok(projectService.addMember(projectId, userId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long id, @RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectDTO dto) {
         return ResponseEntity.ok(projectService.update(id, dto));
     }
 

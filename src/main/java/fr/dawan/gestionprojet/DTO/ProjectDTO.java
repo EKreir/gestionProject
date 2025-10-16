@@ -1,5 +1,6 @@
 package fr.dawan.gestionprojet.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,11 @@ import java.util.Set;
 @Setter
 public class ProjectDTO {
     private Long id;
+
+    @NotBlank(message = "Le nom du projet ne peut pas être vide.")
     private String name;
+
+    @NotBlank(message = "La description du projet ne peut pas être vide.")
     private String description;
     private LocalDate startDate;
     private LocalDate  endDate;

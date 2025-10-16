@@ -3,6 +3,7 @@ package fr.dawan.gestionprojet.controller;
 import fr.dawan.gestionprojet.DTO.UserDTO;
 import fr.dawan.gestionprojet.exception.ResourceNotFoundException;
 import fr.dawan.gestionprojet.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +36,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
         String tempPassWord = "qwerty";
         UserDTO created = userService.create(userDTO, tempPassWord);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
         try {
             UserDTO updated = userService.update(id, userDTO);
             return ResponseEntity.ok(updated);
